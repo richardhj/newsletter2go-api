@@ -78,12 +78,11 @@ $recipient->save();
 For some models, ```delete()``` is available. Example:
 
 ```php
-$groups = Newsletter2Go\Api\Model\NewsletterGroup::findByList('abc123', null, $credentials);
+$groups = Newsletter2Go\Api\Model\NewsletterGroup::findByList('abc123', $getParams, $credentials);
 
-/** @var NewsletterUser $user */
+/** @var NewsletterGroup $group */
 foreach ($groups as $group) {
     $group->delete();
-    // All the data fetched for this item
 }
 ```
 
