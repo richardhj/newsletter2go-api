@@ -15,6 +15,7 @@ $ composer require richardhj/newsletter2go-api
 ```
 
 ## Usage
+### Fetch and alter
 
 If you want to fetch items via the API there might be a static function for. Example:
 
@@ -31,8 +32,12 @@ foreach ($users as $user) {
     $user->setLastName('Doe');
     // Save the user (via the API of course)
     $user->save();
+    // All the data fetched for this item
+    $data = $user->row();
 }
 ```
+
+### Create
 
 If you want to create items via the API, this is how. Example:
 
@@ -49,7 +54,8 @@ $recipient
 $recipient->save();
 ```
 
-*to be extended. not all methods implemented yet*
+
+**to be extended. not all methods implemented yet**
 
 Visit [the official API documentation](https://docs.newsletter2go.com) for reference.
 
