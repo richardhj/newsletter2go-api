@@ -35,6 +35,25 @@ foreach ($users as $user) {
     // All the data fetched for this item
     $data = $user->row();
 }
+
+// Another example
+$recipients = Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', null, $credentials);
+var_dump($recipients);
+```
+
+#### Get parameters
+In the example above, you can provide a ```GetParamters``` instance instead of ```null```. Get parameters allow you to filter, limit etc. the item collection that will be returned. Example:
+
+```php
+$getParams = new Newsletter2Go\Api\Tool\GetParameters();
+$getParams
+    ->setExpand(true)
+    ->setFilter('last_name=like="%@example.org"')
+    ->setOffset(2)
+    ->setLimit(1);
+
+$recipients = Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', $getParams, $credentials);
+var_dump($recipients);
 ```
 
 ### Create
@@ -52,6 +71,20 @@ $recipient
 
 // Update an existing recipient or create a new recipient
 $recipient->save();
+```
+
+### Delete
+
+For some models, ```delete()``` is available. Example:
+
+```php
+$groups = Newsletter2Go\Api\Model\NewsletterGroup::findByList('abc123', null, $credentials);
+
+/** @var NewsletterUser $user */
+foreach ($groups as $group) {
+    $group->delete();
+    // All the data fetched for this item
+}
 ```
 
 
