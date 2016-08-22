@@ -48,7 +48,7 @@ In the example above, you can provide a ```GetParamters``` instance instead of `
 $getParams = new Newsletter2Go\Api\Tool\GetParameters();
 $getParams
     ->setExpand(true)
-    ->setFilter('last_name=like="%@example.org"')
+    ->setFilter('email=like="%@example.org"')
     ->setOffset(2)
     ->setLimit(1);
 
