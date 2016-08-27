@@ -49,7 +49,7 @@ class NewsletterList extends AbstractModel implements ModelDeletableInterface
 
 
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected static $endpointResource = '/lists';
 

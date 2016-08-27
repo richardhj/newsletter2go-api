@@ -32,6 +32,14 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
+     * Resource path on endpoint for most calls
+     *
+     * @var string
+     */
+    protected static $endpointResource;
+
+
+    /**
      * The data used for json
      *
      * @var array

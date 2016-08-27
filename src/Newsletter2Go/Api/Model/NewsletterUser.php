@@ -91,9 +91,9 @@ class NewsletterUser extends AbstractModel
 
 
     /**
-     * @var string
+     * {@inheritdoc}
      */
-    static $endpointResource = '/users';
+    protected static $endpointResource = '/users';
 
 
     /**

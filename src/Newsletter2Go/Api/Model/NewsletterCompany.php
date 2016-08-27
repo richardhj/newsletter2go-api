@@ -55,6 +55,9 @@ class NewsletterCompany extends AbstractModel
     use ModelBasicSaveTrait;
 
 
+    /**
+     * {@inheritdoc}
+     */
     protected static $endpointResource = '/companies';
 
 
