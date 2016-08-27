@@ -62,21 +62,7 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
             ->getHttpClient()
             ->get($endpoint);
 
-        $json = \GuzzleHttp\json_decode($response->getBody()->getContents());
-
-        if (0 === $json->info->count) {
-            return null;
-        }
-
-        /** @var NewsletterGroup[] $models */
-        $models = [];
-
-        foreach ($json->value as $i => $data) {
-            $models[$i] = clone $model;
-            $models[$i]->setRow((array)$data);
-        }
-
-        return new Collection($models);
+        return $model->createCollectionFromResponse($response);
     }
 
 
@@ -100,7 +86,7 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
     /**
      * {@inheritdoc}
      */
-    function save()
+    public function save()
     {
         // Update
         if (array_key_exists('id', $this->data)) {

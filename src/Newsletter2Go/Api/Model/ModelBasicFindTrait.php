@@ -73,21 +73,6 @@ trait ModelBasicFindTrait
             ->getHttpClient()
             ->get($endpoint);
 
-
-        $json = \GuzzleHttp\json_decode($response->getBody()->getContents());
-
-        if (0 === $json->info->count) {
-            return null;
-        }
-
-        /** @var AbstractModel[] $models */
-        $models = [];
-
-        foreach ($json->value as $i => $data) {
-            $models[$i] = clone $model;
-            $models[$i]->setRow((array)$data);
-        }
-
-        return new Collection($models);
+        return $model->createCollectionFromResponse($response);
     }
 }

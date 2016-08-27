@@ -13,6 +13,7 @@ namespace Newsletter2Go\Api\Model;
 
 use Newsletter2Go\Api\Api;
 use Newsletter2Go\Api\Tool\ApiCredentials;
+use Psr\Http\Message\ResponseInterface;
 
 
 /**
@@ -47,15 +48,6 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
-     * @return Api
-     */
-    public function getApi()
-    {
-        return $this->api;
-    }
-
-
-    /**
      * AbstractModel constructor.
      * Create an api instance. Set api credentials if they are defined as constants
      */
@@ -79,6 +71,26 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
+     * Create a model instance from static context
+     *
+     * @return static
+     */
+    public static function createInstance()
+    {
+        return new static();
+    }
+
+
+    /**
+     * @return Api
+     */
+    public function getApi()
+    {
+        return $this->api;
+    }
+
+
+    /**
      * Set api credentials
      *
      * @param ApiCredentials $credentials
@@ -90,17 +102,6 @@ abstract class AbstractModel implements \JsonSerializable
         }
 
         $this->getApi()->setApiCredentials($credentials);
-    }
-
-
-    /**
-     * Create a model instance from static context
-     *
-     * @return static
-     */
-    public static function createInstance()
-    {
-        return new static();
     }
 
 
@@ -193,7 +194,7 @@ abstract class AbstractModel implements \JsonSerializable
      *
      * @return self
      */
-    abstract function save();
+    public abstract function save();
 
 
     /**
@@ -204,6 +205,33 @@ abstract class AbstractModel implements \JsonSerializable
     public static function getConfigurableFields()
     {
         return static::$configurableFields;
+    }
+
+
+    /**
+     * Create a collection of models using data of an api call
+     *
+     * @param ResponseInterface $response
+     *
+     * @return Collection|null
+     */
+    protected function createCollectionFromResponse(ResponseInterface $response)
+    {
+        $json = \GuzzleHttp\json_decode($response->getBody()->getContents());
+
+        if (0 === $json->info->count || empty($json->value)) {
+            return null;
+        }
+
+        /** @var AbstractModel[] $models */
+        $models = [];
+
+        foreach ($json->value as $i => $data) {
+            $models[$i] = clone $this;
+            $models[$i]->setRow((array)$data);
+        }
+
+        return new Collection($models);
     }
 
 

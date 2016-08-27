@@ -23,16 +23,16 @@ class GetParameters
      * The filter language for filtering results is based on FIQL.
      * With the only restriction, that plain values must be surrounded by `"`. For example first_name=="Max"
      * The following operators are supported
-     * * Equals ==
-     * * Not equals =ne=
-     * * Greater than =gt=
-     * * Greater than equals =ge=
-     * * Lower than =lt=
-     * * Lower than equals =le=
-     * * Like =like= (in combination with % you are able to search for starts with, ends with, contains
-     * * Not like =nlike=
-     * * Logical and ;
-     * * Logical or ,
+     * * Equals `==`
+     * * Not equals `=ne=`
+     * * Greater than `=gt=`
+     * * Greater than equals `=ge=`
+     * * Lower than `=lt=`
+     * * Lower than equals `=le=`
+     * * Like `=like=` (in combination with % you are able to search for starts with, ends with, contains)
+     * * Not like `=nlike=`
+     * * Logical and `;`
+     * * Logical or `,`
      *
      * @var string
      */

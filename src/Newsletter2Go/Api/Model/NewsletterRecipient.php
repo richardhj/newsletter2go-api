@@ -77,8 +77,11 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $endpoint = $model->api->fillEndpointWithParams('/lists/%s/groups/%s/recipients', [$lid, $gid]);
         $endpoint = $model->api->addGetParametersToEndpoint($endpoint, $getParams);
 
-        return $model->api->getHttpClient()
+        $response = $model->api
+            ->getHttpClient()
             ->get($endpoint);
+
+        return $model->createCollectionFromResponse($response);
     }
 
 
@@ -103,21 +106,7 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
             ->getHttpClient()
             ->get($endpoint);
 
-        $json = \GuzzleHttp\json_decode($response->getBody()->getContents());
-
-        if (0 === $json->info->count) {
-            return null;
-        }
-
-        /** @var NewsletterRecipient[] $models */
-        $models = [];
-
-        foreach ($json->value as $i => $data) {
-            $models[$i] = clone $model;
-            $models[$i]->setRow((array)$data);
-        }
-
-        return new Collection($models);
+        return $model->createCollectionFromResponse($response);
     }
 
 
