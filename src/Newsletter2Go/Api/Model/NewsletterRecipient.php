@@ -17,6 +17,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
 /**
  * Class NewsletterRecipient
  *
+ * @method NewsletterRecipient setId($id)
  * @method NewsletterRecipient setListId($listId)
  * @method NewsletterRecipient setEmail($email)
  * @method NewsletterRecipient setPhone($phone)
@@ -63,7 +64,7 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * @param GetParameters  $getParams
      * @param ApiCredentials $credentials
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return Collection|null
      */
     public static function findByListAndGroup(
         $lid,
@@ -111,17 +112,56 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
 
 
     /**
+     * Add this recipient to a particular group
+     *
+     * @param string $gid The group id
+     */
+    public function addToGroup($gid)
+    {
+        $endpoint = $this->api->fillEndpointWithParams(
+            '/lists/%s/groups/%s/recipients/%s',
+            [$this->getListId(), $gid, $this->getId()]
+        );
+
+        $this->api
+            ->getHttpClient()
+            ->post($endpoint);
+    }
+
+
+    /**
+     * Remove this recipient from a particular group
+     *
+     * @param string $gid The group id
+     */
+    public function removeFromGroup($gid)
+    {
+        $endpoint = $this->api->fillEndpointWithParams(
+            '/lists/%s/groups/%s/recipients/%s',
+            [$this->getListId(), $gid, $this->getId()]
+        );
+
+        $this->api
+            ->getHttpClient()
+            ->delete($endpoint);
+    }
+
+
+    /**
      * {@inheritdoc}
      */
     public function save()
     {
-        $this->api->getHttpClient()
+        $response = $this->api->getHttpClient()
             ->post(
                 '/recipients',
                 [
                     'json' => $this,
                 ]
             );
+
+        $json = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        $this->setId($json->value->id);
 
         return $this;
     }
