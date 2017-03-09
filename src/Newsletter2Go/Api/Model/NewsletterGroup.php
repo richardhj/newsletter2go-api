@@ -69,7 +69,7 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
     /**
      * Delete the current model
      *
-     * @return bool
+     * @return void
      */
     public function delete()
     {
@@ -78,8 +78,6 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
         $this->api
             ->getHttpClient()
             ->delete($endpoint);
-
-        return true;
     }
 
 

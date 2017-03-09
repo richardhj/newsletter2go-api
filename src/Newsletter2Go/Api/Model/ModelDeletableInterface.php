@@ -21,7 +21,7 @@ interface ModelDeletableInterface
     /**
      * Delete the current model
      *
-     * @return bool
+     * @return void
      */
     public function delete();
 }

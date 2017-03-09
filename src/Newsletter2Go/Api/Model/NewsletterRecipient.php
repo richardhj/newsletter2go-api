@@ -177,7 +177,5 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $this->api
             ->getHttpClient()
             ->delete($endpoint);
-
-        return true;
     }
 }

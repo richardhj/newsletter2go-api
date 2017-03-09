@@ -76,7 +76,7 @@ class NewsletterList extends AbstractModel implements ModelDeletableInterface
     /**
      * Delete the current model
      *
-     * @return bool
+     * @return void
      */
     public function delete()
     {
