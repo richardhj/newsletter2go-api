@@ -18,8 +18,8 @@
         "source": "https://github.com/richardhj/newsletter2go-api"
     },
     "require": {
-        "php": ">=5.4",
-        "richardhj/oauth2-newsletter2go": "*"
+        "php": "^5.4 || ^7.0",
+        "richardhj/oauth2-newsletter2go": "^1.0"
     },
     "autoload": {
         "psr-0": {
