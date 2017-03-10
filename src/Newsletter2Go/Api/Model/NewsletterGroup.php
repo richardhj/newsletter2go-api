@@ -115,7 +115,7 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
 
             $json = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
-            $this->setId($json->value->id);
+            $this->setId($json->value[0]->id);
         }
 
         return $this;
