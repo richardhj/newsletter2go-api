@@ -170,6 +170,7 @@ abstract class AbstractModel implements \JsonSerializable
      */
     public function __call($name, $arguments)
     {
+        // Convert a `$this->getIsBlacklisted()` to `$this->is_blacklisted`
         if (0 === strncmp($name, 'set', 3)) {
             return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))}
                 = reset($arguments);
