@@ -42,7 +42,9 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
 {
 
     /**
-     * {@inheritdoc}
+     * An array containing all field that can be configured and will be represented in the json
+     *
+     * @var array
      */
     protected static $configurableFields = [
         'list_id',

@@ -17,6 +17,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
 
 /**
  * Class ModelBasicFindTrait
+ *
  * @package Newsletter2Go\Api\Model
  */
 trait ModelBasicFindTrait
@@ -36,7 +37,7 @@ trait ModelBasicFindTrait
         $model = static::createInstance();
         $model->setApiCredentials($credentials);
 
-        $endpoint = $model->getApi()->fillEndpointWithParams(static::$endpointResource.'/%s', $id);
+        $endpoint = $model->getApi()->fillEndpointWithParams(static::$endpointResource . '/%s', $id);
 
         $response = $model->getApi()
             ->getHttpClient()
@@ -49,7 +50,7 @@ trait ModelBasicFindTrait
             return null;
         }
 
-        return $model->setRow((array)reset($json->value));
+        return $model->setRow((array) reset($json->value));
     }
 
 

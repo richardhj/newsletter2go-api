@@ -25,7 +25,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @var int
      */
-    protected $index = -1;
+    private $index = -1;
 
 
     /**
@@ -33,7 +33,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @var AbstractModel[]
      */
-    protected $models = [];
+    private $models = [];
 
 
     /**
@@ -49,7 +49,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         foreach ($models as $model) {
             if (!$model instanceof AbstractModel) {
-                throw new \InvalidArgumentException('Invalid type: '.gettype($model));
+                throw new \InvalidArgumentException('Invalid type: ' . gettype($model));
             }
         }
 
@@ -177,7 +177,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
             /** @noinspection PhpUndefinedMethodInspection */
             return $this->models[$this->index]->delete();
         } else {
-            throw new \BadFunctionCallException(gettype($this->models[$this->index]).' is not deletable');
+            throw new \BadFunctionCallException(gettype($this->models[$this->index]) . ' is not deletable');
         }
     }
 
@@ -302,7 +302,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
     public function fetchEach($key)
     {
         $this->reset();
-        $return = array();
+        $return = [];
 
         while ($this->next()) {
 
@@ -325,7 +325,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
     public function fetchAll()
     {
         $this->reset();
-        $return = array();
+        $return = [];
 
         while ($this->next()) {
             $return[] = $this->row();

@@ -19,6 +19,7 @@ use Newsletter2Go\OAuth2\Client\Provider\Newsletter2Go as OAuthProvider;
 
 /**
  * Class Api
+ *
  * @package Newsletter2Go\Api
  */
 class Api
@@ -29,7 +30,7 @@ class Api
      *
      * @var string
      */
-    protected static $baseUrl = 'https://api.newsletter2go.com';
+    private static $baseUrl = 'https://api.newsletter2go.com';
 
 
     /**
@@ -37,7 +38,7 @@ class Api
      *
      * @var AccessToken
      */
-    protected $accessToken;
+    private $accessToken;
 
 
     /**
@@ -45,10 +46,12 @@ class Api
      *
      * @var ApiCredentials
      */
-    protected $apiCredentials;
+    private $apiCredentials;
 
 
     /**
+     * Set the access token used for api communication
+     *
      * @param AccessToken $accessToken
      *
      * @return Api
@@ -62,6 +65,8 @@ class Api
 
 
     /**
+     * Set the api credentials
+     *
      * @param ApiCredentials $apiCredentials
      *
      * @return Api
@@ -76,6 +81,8 @@ class Api
 
     /**
      * Authorize and set the access token
+     *
+     * @return void
      */
     protected function authorize()
     {
@@ -95,8 +102,8 @@ class Api
                 $provider->getAccessToken(
                     'https://nl2go.com/jwt_refresh',
                     [
-                        'refresh_token' => $this->apiCredentials->getRefreshToken(
-                        ) ?: $this->accessToken->getRefreshToken(),
+                        'refresh_token' => $this->apiCredentials->getRefreshToken()
+                            ?: $this->accessToken->getRefreshToken(),
                     ]
                 )
             );
@@ -127,11 +134,7 @@ class Api
      */
     public static function fillEndpointWithParams($endpoint, $params)
     {
-        if (!is_array($params)) {
-            $params = [$params];
-        }
-
-        return vsprintf($endpoint, $params);
+        return vsprintf($endpoint, (array) $params);
     }
 
 
@@ -153,7 +156,7 @@ class Api
 
         $query = http_build_query($getParameters);
 
-        return $endpoint.((strlen($query)) ? '?'.$query : '');
+        return $endpoint . ((strlen($query)) ? '?' . $query : '');
     }
 
 
@@ -172,7 +175,7 @@ class Api
             [
                 'base_uri' => static::$baseUrl,
                 'headers'  => [
-                    'authorization' => 'Bearer '.$this->accessToken->getToken(),
+                    'authorization' => 'Bearer ' . $this->accessToken->getToken(),
                 ],
             ]
         );

@@ -13,6 +13,7 @@ namespace Newsletter2Go\Api\Tool;
 
 /**
  * Class ApiCredentialsFactory
+ *
  * @package Newsletter2Go\Api\Tool
  */
 class ApiCredentialsFactory

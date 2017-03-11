@@ -13,6 +13,7 @@ namespace Newsletter2Go\Api\Tool;
 
 /**
  * Class ApiCredentials
+ *
  * @package Newsletter2Go\Api\Tool
  */
 class ApiCredentials
@@ -21,25 +22,25 @@ class ApiCredentials
     /**
      * @var string
      */
-    protected $authKey;
+    private $authKey;
 
 
     /**
      * @var string
      */
-    protected $username;
+    private $username;
 
 
     /**
      * @var string
      */
-    protected $password;
+    private $password;
 
 
     /**
      * @var string
      */
-    protected $refreshToken;
+    private $refreshToken;
 
 
     /**

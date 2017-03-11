@@ -13,6 +13,7 @@ namespace Newsletter2Go\Api\Model;
 
 /**
  * Interface ModelDeletableInterface
+ *
  * @package Newsletter2Go\Api\Model
  */
 interface ModelDeletableInterface

@@ -91,13 +91,17 @@ class NewsletterUser extends AbstractModel
 
 
     /**
-     * {@inheritdoc}
+     * Resource path on endpoint
+     *
+     * @var string
      */
     protected static $endpointResource = '/users';
 
 
     /**
-     * {@inheritdoc}
+     * An array containing all field that can be configured and will be represented in the json
+     *
+     * @var array
      */
     protected static $configurableFields = [
         'email',

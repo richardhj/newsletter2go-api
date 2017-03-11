@@ -16,6 +16,7 @@ use Newsletter2Go\Api\Api;
 
 /**
  * Class ModelBasicSaveTrait
+ *
  * @package Newsletter2Go\Api\Model
  */
 trait ModelBasicSaveTrait
@@ -29,8 +30,8 @@ trait ModelBasicSaveTrait
     public function save()
     {
         /** @var Api $api */
-        $api = $this->getApi();
-        $endpoint = $api->fillEndpointWithParams(static::$endpointResource.'/%s', $this->getId());
+        $api      = $this->getApi();
+        $endpoint = $api->fillEndpointWithParams(static::$endpointResource . '/%s', $this->getId());
 
         $api
             ->getHttpClient()

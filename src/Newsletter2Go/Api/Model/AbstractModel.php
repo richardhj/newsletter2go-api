@@ -18,6 +18,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class AbstractModel
+ *
  * @package Newsletter2Go\Api\Model
  */
 abstract class AbstractModel implements \JsonSerializable
@@ -32,7 +33,7 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
-     * Resource path on endpoint for most calls
+     * Resource path on endpoint
      *
      * @var string
      */
@@ -44,7 +45,7 @@ abstract class AbstractModel implements \JsonSerializable
      *
      * @var array
      */
-    protected $data = [];
+    private $data = [];
 
 
     /**
@@ -52,29 +53,15 @@ abstract class AbstractModel implements \JsonSerializable
      *
      * @var Api
      */
-    protected $api;
+    private $api;
 
 
     /**
      * AbstractModel constructor.
-     * Create an api instance. Set api credentials if they are defined as constants
      */
     public function __construct()
     {
         $this->api = new Api();
-//
-//        if (defined(NEWSLETTER2GO_API_AUTHKEY)
-//            && defined(NEWSLETTER2GO_API_USERNAME)
-//            && defined(NEWSLETTER2GO_API_PASSWORD)
-//        ) {
-//            $this->setApiCredentials(
-//                ApiCredentialsFactory::create(
-//                    NEWSLETTER2GO_API_AUTHKEY,
-//                    NEWSLETTER2GO_API_USERNAME,
-//                    NEWSLETTER2GO_API_PASSWORD
-//                )
-//            );
-//        }
     }
 
 
@@ -160,9 +147,8 @@ abstract class AbstractModel implements \JsonSerializable
     public function __call($name, $arguments)
     {
         if (0 === strncmp($name, 'set', 3)) {
-            return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))} = reset(
-                $arguments
-            );
+            return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))}
+                = reset($arguments);
         } elseif (0 === strncmp($name, 'get', 3)) {
             return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))};
         }
@@ -236,7 +222,7 @@ abstract class AbstractModel implements \JsonSerializable
 
         foreach ($json->value as $i => $data) {
             $models[$i] = clone $this;
-            $models[$i]->setRow((array)$data);
+            $models[$i]->setRow((array) $data);
         }
 
         return new Collection($models);
@@ -244,7 +230,12 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
-     *{@inheritdoc}
+     * Specify data which should be serialized to JSON
+     *
+     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     *        which is a value of any type other than a resource.
+     * @since 5.4.0
      */
     function jsonSerialize()
     {

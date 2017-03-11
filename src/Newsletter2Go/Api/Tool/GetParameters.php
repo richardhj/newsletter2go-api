@@ -13,6 +13,7 @@ namespace Newsletter2Go\Api\Tool;
 
 /**
  * Class GetParameters
+ *
  * @package Newsletter2Go\Api\Tool
  */
 class GetParameters
