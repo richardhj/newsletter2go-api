@@ -123,7 +123,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $endpoint = $this->getApi()->fillEndpointWithParams(
             '/lists/%s/groups/%s/recipients/%s',
             [
-                $this->getListId(), $gid, $this->getId()]
+                $this->getListId(),
+                $gid,
+                $this->getId()
+            ]
         );
 
         $this->getApi()
@@ -142,7 +145,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $endpoint = $this->getApi()->fillEndpointWithParams(
             '/lists/%s/groups/%s/recipients/%s',
             [
-                $this->getListId(), $gid, $this->getId()]
+                $this->getListId(),
+                $gid,
+                $this->getId()
+            ]
         );
 
         $this->getApi()
