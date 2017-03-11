@@ -76,6 +76,13 @@ class NewsletterList extends AbstractModel implements ModelDeletableInterface
         'tracking_url',
     ];
 
+    // TODO: Implement https://docs.newsletter2go.com/#!/List/createList (in conflict with save())
+
+    // TODO: Implement
+    //          https://docs.newsletter2go.com/#!/List/removeRecipientsFromList,
+    //          https://docs.newsletter2go.com/#!/List/getRecipients,
+    //          https://docs.newsletter2go.com/#!/List/updateRecipients
+    //          (same in NewsletterRecipient)
 
     /**
      * Delete the current model

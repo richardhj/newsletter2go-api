@@ -82,6 +82,12 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
             ->delete($endpoint);
     }
 
+    // TODO: Implement https://docs.newsletter2go.com/#!/Group/removeRecipientsFromGroup (same as in NewsletterRecipient)
+    // TODO: Implement https://docs.newsletter2go.com/#!/Group/getRecipientsByGroup (same as in NewsletterRecipient)
+    // TODO: Implement https://docs.newsletter2go.com/#!/Group/addRecipientsToGroup (same as in NewsletterRecipient)
+    // TODO: Implement https://docs.newsletter2go.com/#!/Group/removeRecipientFromGroup (same as in NewsletterRecipient)
+    // TODO: Implement https://docs.newsletter2go.com/#!/Group/addRecipientToGroup (same as in NewsletterRecipient)
+
 
     /**
      * Save the current model

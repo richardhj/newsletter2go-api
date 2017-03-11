@@ -203,6 +203,21 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
             ->delete($endpoint);
     }
 
+    // TODO: Implement
+    //          https://docs.newsletter2go.com/#!/Recipient/removeRecipientsFromGroup,
+    //          https://docs.newsletter2go.com/#!/Recipient/removeRecipientsFromList,
+    //          https://docs.newsletter2go.com/#!/Recipient/updateRecipients,
+    //          https://docs.newsletter2go.com/#!/Recipient/addRecipientsToGroup
+    //          (all using a fiql filter)
+
+    // TODO: Implement
+    //          https://docs.newsletter2go.com/#!/Recipient/importRecipientsInit,
+    //          https://docs.newsletter2go.com/#!/Recipient/importRecipientsSave,
+    //          https://docs.newsletter2go.com/#!/Recipient/importRecipientsStatistics
+
+    // TODO: Implement
+    //          https://docs.newsletter2go.com/#!/Recipient/subscribeRecipient
+
 
     /**
      * Update the current recipient by a given id
