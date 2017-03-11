@@ -57,10 +57,10 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
         $model = static::createInstance();
         $model->setApiCredentials($credentials);
 
-        $endpoint = $model->api->fillEndpointWithParams('/lists/%s/groups', $lid);
-        $endpoint = $model->api->addGetParametersToEndpoint($endpoint, $getParams);
+        $endpoint = $model->getApi()->fillEndpointWithParams('/lists/%s/groups', $lid);
+        $endpoint = $model->getApi()->addGetParametersToEndpoint($endpoint, $getParams);
 
-        $response = $model->api
+        $response = $model->getApi()
             ->getHttpClient()
             ->get($endpoint);
 
@@ -75,9 +75,9 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
      */
     public function delete()
     {
-        $endpoint = $this->api->fillEndpointWithParams('/groups/%s', $this->getId());
+        $endpoint = $this->getApi()->fillEndpointWithParams('/groups/%s', $this->getId());
 
-        $this->api
+        $this->getApi()
             ->getHttpClient()
             ->delete($endpoint);
     }
@@ -89,7 +89,7 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
     public function save()
     {
         // Update
-        if (array_key_exists('id', $this->data)) {
+        if (array_key_exists('id', $this->getData())) {
             $endpoint = $this->getApi()->fillEndpointWithParams('/groups/%s', $this->getId());
 
             $this->getApi()
@@ -102,7 +102,7 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
                 );
         } // Create
         else {
-            if (!array_key_exists('list_id', $this->data)) {
+            if (!array_key_exists('list_id', $this->getData())) {
                 throw new \LogicException('Provide a list id when creating a new group');
             }
 

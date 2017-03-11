@@ -122,7 +122,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
             $this->first();
         }
 
-        return $this->models[$this->index]->row();
+        return $this->models[$this->index]->getData();
     }
 
 
@@ -139,7 +139,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
             $this->first();
         }
 
-        $this->models[$this->index]->setRow($data);
+        $this->models[$this->index]->setData($data);
 
         return $this;
     }

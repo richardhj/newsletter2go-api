@@ -41,7 +41,7 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
-     * The data used for json
+     * The data representing the model
      *
      * @var array
      */
@@ -73,6 +73,30 @@ abstract class AbstractModel implements \JsonSerializable
     public static function createInstance()
     {
         return new static();
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+
+    /**
+     * Set the data
+     *
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+
+        return $this;
     }
 
 
@@ -158,32 +182,6 @@ abstract class AbstractModel implements \JsonSerializable
 
 
     /**
-     * Fetch the data
-     *
-     * @return array
-     */
-    public function row()
-    {
-        return $this->data;
-    }
-
-
-    /**
-     * Set the data
-     *
-     * @param array $data
-     *
-     * @return $this
-     */
-    public function setRow(array $data)
-    {
-        $this->data = $data;
-
-        return $this;
-    }
-
-
-    /**
      * Save the current model
      *
      * @return self
@@ -222,7 +220,7 @@ abstract class AbstractModel implements \JsonSerializable
 
         foreach ($json->value as $i => $data) {
             $models[$i] = clone $this;
-            $models[$i]->setRow((array) $data);
+            $models[$i]->setData((array) $data);
         }
 
         return new Collection($models);

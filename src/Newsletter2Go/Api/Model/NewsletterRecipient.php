@@ -77,10 +77,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $model = static::createInstance();
         $model->setApiCredentials($credentials);
 
-        $endpoint = $model->api->fillEndpointWithParams('/lists/%s/groups/%s/recipients', [$lid, $gid]);
-        $endpoint = $model->api->addGetParametersToEndpoint($endpoint, $getParams);
+        $endpoint = $model->getApi()->fillEndpointWithParams('/lists/%s/groups/%s/recipients', [$lid, $gid]);
+        $endpoint = $model->getApi()->addGetParametersToEndpoint($endpoint, $getParams);
 
-        $response = $model->api
+        $response = $model->getApi()
             ->getHttpClient()
             ->get($endpoint);
 
@@ -102,10 +102,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $model = static::createInstance();
         $model->setApiCredentials($credentials);
 
-        $endpoint = $model->api->fillEndpointWithParams('/lists/%s/recipients', $lid);
-        $endpoint = $model->api->addGetParametersToEndpoint($endpoint, $getParams);
+        $endpoint = $model->getApi()->fillEndpointWithParams('/lists/%s/recipients', $lid);
+        $endpoint = $model->getApi()->addGetParametersToEndpoint($endpoint, $getParams);
 
-        $response = $model->api
+        $response = $model->getApi()
             ->getHttpClient()
             ->get($endpoint);
 
@@ -120,12 +120,13 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      */
     public function addToGroup($gid)
     {
-        $endpoint = $this->api->fillEndpointWithParams(
+        $endpoint = $this->getApi()->fillEndpointWithParams(
             '/lists/%s/groups/%s/recipients/%s',
-            [$this->getListId(), $gid, $this->getId()]
+            [
+                $this->getListId(), $gid, $this->getId()]
         );
 
-        $this->api
+        $this->getApi()
             ->getHttpClient()
             ->post($endpoint);
     }
@@ -138,12 +139,13 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      */
     public function removeFromGroup($gid)
     {
-        $endpoint = $this->api->fillEndpointWithParams(
+        $endpoint = $this->getApi()->fillEndpointWithParams(
             '/lists/%s/groups/%s/recipients/%s',
-            [$this->getListId(), $gid, $this->getId()]
+            [
+                $this->getListId(), $gid, $this->getId()]
         );
 
-        $this->api
+        $this->getApi()
             ->getHttpClient()
             ->delete($endpoint);
     }
@@ -154,7 +156,7 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      */
     public function save()
     {
-        $response = $this->api->getHttpClient()
+        $response = $this->getApi()->getHttpClient()
             ->post(
                 '/recipients',
                 [
@@ -174,9 +176,15 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      */
     public function delete()
     {
-        $endpoint = $this->api->fillEndpointWithParams('/lists/%s/recipients/%s', [$this->getListId(), $this->getId()]);
+        $endpoint = $this->getApi()->fillEndpointWithParams(
+            '/lists/%s/recipients/%s',
+            [
+                $this->getListId(),
+                $this->getId()
+            ]
+        );
 
-        $this->api
+        $this->getApi()
             ->getHttpClient()
             ->delete($endpoint);
     }

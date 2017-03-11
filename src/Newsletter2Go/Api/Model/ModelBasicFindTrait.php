@@ -50,7 +50,7 @@ trait ModelBasicFindTrait
             return null;
         }
 
-        return $model->setRow((array) reset($json->value));
+        return $model->setData((array) reset($json->value));
     }
 
 
