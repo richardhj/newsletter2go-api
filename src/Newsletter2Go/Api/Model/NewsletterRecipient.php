@@ -158,10 +158,16 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
 
 
     /**
-     * {@inheritdoc}
+     * Save the current model
+     *
+     * @return self
      */
     public function save()
     {
+        if (array_key_exists('id', $this->getData())) {
+            return $this->update();
+        }
+
         $response = $this->getApi()->getHttpClient()
             ->post(
                 '/recipients',
@@ -178,7 +184,9 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
 
 
     /**
-     * {@inheritdoc}
+     * Delete the current model
+     *
+     * @return void
      */
     public function delete()
     {
@@ -193,5 +201,33 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         $this->getApi()
             ->getHttpClient()
             ->delete($endpoint);
+    }
+
+
+    /**
+     * Update the current recipient by a given id
+     *
+     * @return self
+     */
+    private function update()
+    {
+        $endpoint = $this->getApi()->fillEndpointWithParams(
+            '/lists/%s/recipients/%s',
+            [
+                $this->getListId(),
+                $this->getId()
+            ]
+        );
+
+        $this->getApi()
+            ->getHttpClient()
+            ->patch(
+                $endpoint,
+                [
+                    'json' => $this,
+                ]
+            );
+
+        return $this;
     }
 }

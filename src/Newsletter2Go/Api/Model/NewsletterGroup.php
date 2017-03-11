@@ -84,7 +84,9 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
 
 
     /**
-     * {@inheritdoc}
+     * Save the current model
+     *
+     * @return self
      */
     public function save()
     {
