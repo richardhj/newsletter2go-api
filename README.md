@@ -32,12 +32,17 @@ foreach ($users as $user) {
     $user->save();
     
     // $data contains all data fetched for this item
-    $data = $user->row();
+    $data = $user->getData();
 }
 ```
 ```php
 $recipients = Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', null, $apiCredentials);
 var_dump($recipients);
+
+foreach ($recipients as $recipient) {
+    $recipient->addToGroup('xyz345');
+    $recipient->removeFromGroup('asdf12');
+}
 ```
 
 #### Api Credentials
@@ -85,13 +90,16 @@ $recipient
     ->setEmail('doe@example.org')
     ->setGender('m');
 
-// Update an existing recipient or create a new recipient
+// Good to have an id, otherwise the email address will be the primary key and you will not be able to change the email address of a recipient properly
+$recipient->setId('xyz123');
+
+// Update an existing recipient (when id given or email address known in Newsletter2Go) or create a new recipient
 $recipient->save();
 ```
 
 ### Delete
 
-For some models, ```delete()``` is available. Example:
+For models that implement ```Newsletter2Go\Api\Model\ModelDeletableInterface```, ```delete()``` is available. Example:
 
 ```php
 $groups = Newsletter2Go\Api\Model\NewsletterGroup::findByList('abc123', $getParams, $credentials);
