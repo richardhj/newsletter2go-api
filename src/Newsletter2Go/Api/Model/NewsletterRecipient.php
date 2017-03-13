@@ -24,6 +24,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
  * @method NewsletterRecipient setGender($gender)
  * @method NewsletterRecipient setFirstName($firstName)
  * @method NewsletterRecipient setLastName($lastName)
+ * @method NewsletterRecipient setBirthday($birthday) Set the date of birth, in ISO 8601 format preferably
  * @method NewsletterRecipient setIsUnsubscribed($isUnsubscribed)
  * @method NewsletterRecipient setIsBlacklisted($isBlacklisted)
  * @method string getId()
@@ -33,6 +34,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
  * @method string getGender()
  * @method string getFirstName()
  * @method string getLastName()
+ * @method string getBirthday()
  * @method string getIsUnsubscribed()
  * @method string getIsBlacklisted()
  *
@@ -53,6 +55,7 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         'gender',
         'first_name',
         'last_name',
+        'birthday',
         'is_unsubscribed',
         'is_blacklisted',
     ];
