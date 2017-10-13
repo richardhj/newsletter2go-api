@@ -1,26 +1,30 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
-
-namespace Newsletter2Go\Api;
+namespace Richardhj\Newsletter2Go\Api;
 
 use GuzzleHttp\Client as HttpClient;
 use League\OAuth2\Client\Token\AccessToken;
-use Newsletter2Go\Api\Tool\ApiCredentials;
-use Newsletter2Go\Api\Tool\GetParameters;
-use Newsletter2Go\OAuth2\Client\Provider\Newsletter2Go as OAuthProvider;
+use LogicException;
+use Richardhj\Newsletter2Go\Api\Tool\ApiCredentials;
+use Richardhj\Newsletter2Go\Api\Tool\GetParameters;
+use Richardhj\Newsletter2Go\OAuth2\Client\Provider\Newsletter2Go as OAuthProvider;
 
 
 /**
  * Class Api
  *
- * @package Newsletter2Go\Api
+ * @package Richardhj\Newsletter2Go\Api
  */
 class Api
 {
@@ -32,7 +36,6 @@ class Api
      */
     private static $baseUrl = 'https://api.newsletter2go.com';
 
-
     /**
      * The OAuth access token instance
      *
@@ -40,14 +43,12 @@ class Api
      */
     private $accessToken;
 
-
     /**
      * The ApiCredentials instance
      *
      * @var ApiCredentials
      */
     private $apiCredentials;
-
 
     /**
      * Set the access token used for api communication
@@ -63,7 +64,6 @@ class Api
         return $this;
     }
 
-
     /**
      * Set the api credentials
      *
@@ -78,7 +78,6 @@ class Api
         return $this;
     }
 
-
     /**
      * Authorize and set the access token
      *
@@ -87,7 +86,7 @@ class Api
     protected function authorize()
     {
         if (null === $this->apiCredentials->getAuthKey()) {
-            throw new \LogicException('Set the auth key beforehand');
+            throw new LogicException('Set the auth key beforehand');
         }
 
         $provider = new OAuthProvider(
@@ -123,7 +122,6 @@ class Api
         );
     }
 
-
     /**
      * Fill an endpoint path with parameters
      *
@@ -134,9 +132,8 @@ class Api
      */
     public static function fillEndpointWithParams($endpoint, $params)
     {
-        return vsprintf($endpoint, (array) $params);
+        return vsprintf($endpoint, (array)$params);
     }
-
 
     /**
      * Add get parameters to the endpoint path. If no GetParameters instance provided,
@@ -156,9 +153,8 @@ class Api
 
         $query = http_build_query($getParameters);
 
-        return $endpoint . ((strlen($query)) ? '?' . $query : '');
+        return $endpoint.((strlen($query)) ? '?'.$query : '');
     }
-
 
     /**
      * Get the guzzle http client and set base uri and access token header
@@ -175,7 +171,7 @@ class Api
             [
                 'base_uri' => static::$baseUrl,
                 'headers'  => [
-                    'authorization' => 'Bearer ' . $this->accessToken->getToken(),
+                    'authorization' => 'Bearer '.$this->accessToken->getToken(),
                 ],
             ]
         );

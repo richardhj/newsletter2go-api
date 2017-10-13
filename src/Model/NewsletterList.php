@@ -8,7 +8,7 @@
  */
 
 
-namespace Newsletter2Go\Api\Model;
+namespace Richardhj\Newsletter2Go\Api\Model;
 
 /**
  * Class NewsletterList
@@ -39,7 +39,7 @@ namespace Newsletter2Go\Api\Model;
  * @method string getHeaderReplyName()
  * @method string getTrackingUrl()
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
 class NewsletterList extends AbstractModel implements ModelDeletableInterface
 {
@@ -47,14 +47,12 @@ class NewsletterList extends AbstractModel implements ModelDeletableInterface
     use ModelBasicFindTrait;
     use ModelBasicSaveTrait;
 
-
     /**
      * Resource path on endpoint
      *
      * @var string
      */
     protected static $endpointResource = '/lists';
-
 
     /**
      * An array containing all field that can be configured and will be represented in the json

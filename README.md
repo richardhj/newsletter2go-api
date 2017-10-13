@@ -4,7 +4,8 @@
 [![Software License][ico-license]]()
 [![Dependency Status][ico-dependencies]][link-dependencies]
 
-This package provides a model based implementation of the Newsletter2Go API. It aims to make complex documentations unnecessary. With its clear structure and extensive PHPDoc, it is really easy to use.
+This package provides a model based implementation of the Newsletter2Go API. It aims to make complex documentations
+unnecessary. With its clear structure and extensive PHPDoc, it is really easy to use.
 
 ## Install
 
@@ -21,7 +22,7 @@ $ composer require richardhj/newsletter2go-api
 If you want to fetch items via the API there might be a static function for. Example:
 
 ```php
-$users = Newsletter2Go\Api\Model\NewsletterUser::findAll(null, $apiCredentials);
+$users = Richardhj\Newsletter2Go\Api\Model\NewsletterUser::findAll(null, $apiCredentials);
 
 // Use a PHPDoc comment and profit from auto suggestion
 /** @var NewsletterUser $user */
@@ -36,7 +37,7 @@ foreach ($users as $user) {
 }
 ```
 ```php
-$recipients = Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', null, $apiCredentials);
+$recipients = Richardhj\Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', null, $apiCredentials);
 var_dump($recipients);
 
 foreach ($recipients as $recipient) {
@@ -47,10 +48,14 @@ foreach ($recipients as $recipient) {
 
 #### Api Credentials
 
-```ApiCredentials``` are mandatory for the api communication. First of all you need the ```auth_key``` that can be found in the Newsletter2Go back end. The ```auth_key``` is the same for all company's accounts.
+```ApiCredentials``` are mandatory for the api communication. First of all you need the ```auth_key``` that can be found
+in the Newsletter2Go back end. The ```auth_key``` is the same for all company's accounts.
 Furthermore you either need a user's ```username``` and ```password``` or a user's ```refresh_token```.
 
-If you rather want to use and save the ```refresh_token``` instead of username and password in your application, you have to make an initial api authorization call with the ```username``` and ```password``` anyway. Check the [manual of the corresponding OAuth provider](https://github.com/richardhj/oauth2-newsletter2go/blob/master/README.md) to get to know how to fetch a ```refresh_token```.
+If you rather want to use and save the ```refresh_token``` instead of username and password in your application, you
+have to make an initial api authorization call with the ```username``` and ```password``` anyway. Check the
+[manual of the corresponding OAuth provider](https://github.com/richardhj/oauth2-newsletter2go/blob/master/README.md) to
+get to know how to fetch a ```refresh_token```.
 
 ```php
 // Use the ApiCredentialsFactory
@@ -62,17 +67,18 @@ $apiCredentials = ApiCredentialsFactory::create('secret_auth_token', 'secret_use
 
 #### Get parameters
 
-When fetching a collection from the api, you can provide a ```GetParamters``` instance. Get parameters allow you to filter, limit etc. the item collection that will be returned. Example:
+When fetching a collection from the api, you can provide a ```GetParamters``` instance. Get parameters allow you to
+filter, limit etc. the item collection that will be returned. Example:
 
 ```php
-$getParams = new Newsletter2Go\Api\Tool\GetParameters();
+$getParams = new Richardhj\Newsletter2Go\Api\Tool\GetParameters();
 $getParams
     ->setExpand(true)
     ->setFilter('email=like="%@example.org"')
     ->setOffset(2)
     ->setLimit(1);
 
-$recipients = Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', $getParams, $apiCredentials);
+$recipients = Richardhj\Newsletter2Go\Api\Model\NewsletterRecipient::findByListAndGroup('abc123', 'xyz987', $getParams, $apiCredentials);
 var_dump($recipients);
 ```
 
@@ -81,7 +87,7 @@ var_dump($recipients);
 If you want to create items via the API, this is how. Example:
 
 ```php
-$recipient = new Newsletter2Go\Api\Model\NewsletterRecipient();
+$recipient = new Richardhj\Newsletter2Go\Api\Model\NewsletterRecipient();
 $recipient->setApiCredentials($apiCredentials);
 $recipient
     ->setListId('abc123')

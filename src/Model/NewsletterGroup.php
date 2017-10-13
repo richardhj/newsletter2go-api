@@ -1,17 +1,20 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Model;
 
-namespace Newsletter2Go\Api\Model;
-
-use Newsletter2Go\Api\Tool\ApiCredentials;
-use Newsletter2Go\Api\Tool\GetParameters;
+use Richardhj\Newsletter2Go\Api\Tool\ApiCredentials;
+use Richardhj\Newsletter2Go\Api\Tool\GetParameters;
 
 
 /**
@@ -26,7 +29,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
  * @method string getDescription()
  * @method string getListId()
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
 class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
 {
@@ -41,7 +44,6 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
         'description',
         'list_id',
     ];
-
 
     /**
      * Find recipients by a selected list
@@ -67,7 +69,6 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
         return $model->createCollectionFromResponse($response);
     }
 
-
     /**
      * Delete the current model
      *
@@ -88,7 +89,6 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
     // TODO: Implement https://docs.newsletter2go.com/#!/Group/removeRecipientFromGroup (same as in NewsletterRecipient)
     // TODO: Implement https://docs.newsletter2go.com/#!/Group/addRecipientToGroup (same as in NewsletterRecipient)
 
-
     /**
      * Save the current model
      *
@@ -96,8 +96,8 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
      */
     public function save()
     {
-        // Update
         if (array_key_exists('id', $this->getData())) {
+            // Update
             $endpoint = $this->getApi()->fillEndpointWithParams('/groups/%s', $this->getId());
 
             $this->getApi()
@@ -108,8 +108,8 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
                         'json' => $this,
                     ]
                 );
-        } // Create
-        else {
+        } else {
+            // Create
             if (!array_key_exists('list_id', $this->getData())) {
                 throw new \LogicException('Provide a list id when creating a new group');
             }

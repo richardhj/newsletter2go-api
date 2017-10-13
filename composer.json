@@ -19,11 +19,11 @@
     },
     "require": {
         "php": "^5.4 || ^7.0",
-        "richardhj/oauth2-newsletter2go": "^1.0"
+        "richardhj/oauth2-newsletter2go": "^2.0"
     },
     "autoload": {
-        "psr-0": {
-            "Newsletter2Go\\": "src/"
+        "psr-4": {
+            "Richardhj\\Newsletter2Go\\Api\\": "src/"
         }
     }
 }

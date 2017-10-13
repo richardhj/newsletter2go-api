@@ -1,27 +1,31 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Model;
 
-namespace Newsletter2Go\Api\Model;
-
-
-use Newsletter2Go\Api\Api;
-use Newsletter2Go\Api\Tool\ApiCredentials;
+use BadFunctionCallException;
+use JsonSerializable;
+use Richardhj\Newsletter2Go\Api\Api;
+use Richardhj\Newsletter2Go\Api\Tool\ApiCredentials;
 use Psr\Http\Message\ResponseInterface;
 
 
 /**
  * Class AbstractModel
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
-abstract class AbstractModel implements \JsonSerializable
+abstract class AbstractModel implements JsonSerializable
 {
 
     /**
@@ -31,14 +35,12 @@ abstract class AbstractModel implements \JsonSerializable
      */
     protected static $configurableFields = [];
 
-
     /**
      * Resource path on endpoint
      *
      * @var string
      */
     protected static $endpointResource;
-
 
     /**
      * The data representing the model
@@ -47,14 +49,12 @@ abstract class AbstractModel implements \JsonSerializable
      */
     private $data = [];
 
-
     /**
      * The api instance responsible for api communication
      *
      * @var Api
      */
     private $api;
-
 
     /**
      * AbstractModel constructor.
@@ -63,7 +63,6 @@ abstract class AbstractModel implements \JsonSerializable
     {
         $this->api = new Api();
     }
-
 
     /**
      * Create a model instance from static context
@@ -75,7 +74,6 @@ abstract class AbstractModel implements \JsonSerializable
         return new static();
     }
 
-
     /**
      * @return array
      */
@@ -83,7 +81,6 @@ abstract class AbstractModel implements \JsonSerializable
     {
         return $this->data;
     }
-
 
     /**
      * Set the data
@@ -99,7 +96,6 @@ abstract class AbstractModel implements \JsonSerializable
         return $this;
     }
 
-
     /**
      * @return Api
      */
@@ -107,7 +103,6 @@ abstract class AbstractModel implements \JsonSerializable
     {
         return $this->api;
     }
-
 
     /**
      * Set api credentials
@@ -122,7 +117,6 @@ abstract class AbstractModel implements \JsonSerializable
 
         $this->getApi()->setApiCredentials($credentials);
     }
-
 
     /**
      * Set a property in data array
@@ -141,7 +135,6 @@ abstract class AbstractModel implements \JsonSerializable
         return $this;
     }
 
-
     /**
      * Get a property from data array
      *
@@ -158,7 +151,6 @@ abstract class AbstractModel implements \JsonSerializable
         throw new \InvalidArgumentException(sprintf('Property "%s" is not represented in model data', $key));
     }
 
-
     /**
      * Enable magic function call
      *
@@ -166,7 +158,7 @@ abstract class AbstractModel implements \JsonSerializable
      * @param array  $arguments
      *
      * @return mixed
-     * @throws \BadFunctionCallException
+     * @throws BadFunctionCallException
      */
     public function __call($name, $arguments)
     {
@@ -178,9 +170,8 @@ abstract class AbstractModel implements \JsonSerializable
             return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))};
         }
 
-        throw new \BadFunctionCallException(sprintf('Unknown method "%s"', $name));
+        throw new BadFunctionCallException(sprintf('Unknown method "%s"', $name));
     }
-
 
     /**
      * Save the current model
@@ -188,7 +179,6 @@ abstract class AbstractModel implements \JsonSerializable
      * @return self
      */
     public abstract function save();
-
 
     /**
      * Get all configurable fields
@@ -199,7 +189,6 @@ abstract class AbstractModel implements \JsonSerializable
     {
         return static::$configurableFields;
     }
-
 
     /**
      * Create a collection of models using data of an api call
@@ -221,12 +210,11 @@ abstract class AbstractModel implements \JsonSerializable
 
         foreach ($json->value as $i => $data) {
             $models[$i] = clone $this;
-            $models[$i]->setData((array) $data);
+            $models[$i]->setData((array)$data);
         }
 
         return new Collection($models);
     }
-
 
     /**
      * Specify data which should be serialized to JSON
