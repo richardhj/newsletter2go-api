@@ -1,17 +1,20 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Model;
 
-namespace Newsletter2Go\Api\Model;
-
-use Newsletter2Go\Api\Tool\ApiCredentials;
-use Newsletter2Go\Api\Tool\GetParameters;
+use Richardhj\Newsletter2Go\Api\Tool\ApiCredentials;
+use Richardhj\Newsletter2Go\Api\Tool\GetParameters;
 
 
 /**
@@ -38,7 +41,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
  * @method string getIsUnsubscribed()
  * @method string getIsBlacklisted()
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
 class NewsletterRecipient extends AbstractModel implements ModelDeletableInterface
 {
@@ -59,7 +62,6 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         'is_unsubscribed',
         'is_blacklisted',
     ];
-
 
     /**
      * Find recipients by a selected list and group
@@ -90,7 +92,6 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         return $model->createCollectionFromResponse($response);
     }
 
-
     /**
      * Find recipients by a selected list
      *
@@ -115,7 +116,6 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         return $model->createCollectionFromResponse($response);
     }
 
-
     /**
      * Add this recipient to a particular group
      *
@@ -137,7 +137,6 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
             ->post($endpoint);
     }
 
-
     /**
      * Remove this recipient from a particular group
      *
@@ -158,7 +157,6 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
             ->getHttpClient()
             ->delete($endpoint);
     }
-
 
     /**
      * Save the current model
@@ -184,7 +182,6 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
 
         return $this;
     }
-
 
     /**
      * Delete the current model

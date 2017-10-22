@@ -1,17 +1,20 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016-2017 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Model;
 
-namespace Newsletter2Go\Api\Model;
-
-use Newsletter2Go\Api\Tool\ApiCredentials;
-use Newsletter2Go\Api\Tool\GetParameters;
+use Richardhj\Newsletter2Go\Api\Tool\ApiCredentials;
+use Richardhj\Newsletter2Go\Api\Tool\GetParameters;
 
 
 /**
@@ -36,7 +39,7 @@ use Newsletter2Go\Api\Tool\GetParameters;
  * @method string getDefaultValue()
  * @method string getListId()
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
 class NewsletterAttribute extends AbstractModel implements ModelDeletableInterface
 {
@@ -52,7 +55,6 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
         'type',
         'sub_type',
     ];
-
 
     /**
      * Find recipients by a selected list
@@ -78,7 +80,6 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
         return $model->createCollectionFromResponse($response);
     }
 
-
     /**
      * Delete the current model
      *
@@ -90,7 +91,7 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
             '/lists/%s/attributes/%s',
             [
                 $this->getListId(),
-                $this->getId()
+                $this->getId(),
             ]
         );
 
@@ -98,7 +99,6 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
             ->getHttpClient()
             ->delete($endpoint);
     }
-
 
     /**
      * Save the current model
@@ -124,7 +124,6 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
 
         return $this;
     }
-
 
     /**
      * Update the current recipient by a given id

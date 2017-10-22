@@ -1,23 +1,25 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Model;
 
-namespace Newsletter2Go\Api\Model;
-
-
-use Newsletter2Go\Api\Api;
+use Richardhj\Newsletter2Go\Api\Api;
 
 
 /**
  * Class ModelBasicSaveTrait
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
 trait ModelBasicSaveTrait
 {
@@ -31,7 +33,7 @@ trait ModelBasicSaveTrait
     {
         /** @var Api $api */
         $api      = $this->getApi();
-        $endpoint = $api->fillEndpointWithParams(static::$endpointResource . '/%s', $this->getId());
+        $endpoint = $api->fillEndpointWithParams(static::$endpointResource.'/%s', $this->getId());
 
         $api
             ->getHttpClient()

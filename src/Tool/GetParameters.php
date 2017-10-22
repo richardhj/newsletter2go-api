@@ -1,20 +1,23 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
-
-namespace Newsletter2Go\Api\Tool;
+namespace Richardhj\Newsletter2Go\Api\Tool;
 
 
 /**
  * Class GetParameters
  *
- * @package Newsletter2Go\Api\Tool
+ * @package Richardhj\Newsletter2Go\Api\Tool
  */
 class GetParameters
 {
@@ -39,7 +42,6 @@ class GetParameters
      */
     public $_filter;
 
-
     /**
      * A limit for list-responses
      * `50` is api server default, using `-1` here to fetch all items per default
@@ -48,14 +50,12 @@ class GetParameters
      */
     public $_limit = -1;
 
-
     /**
      * An offset for list-responses
      *
      * @var int
      */
     public $_offset = 0;
-
 
     /**
      * True if attributes should be returned or not
@@ -65,7 +65,6 @@ class GetParameters
      */
     public $_expand = true;
 
-
     /**
      * List of case-sensitive fields which should be returned. Only needed if _expand is false or special attributes
      * are needed
@@ -73,7 +72,6 @@ class GetParameters
      * @var string[]
      */
     public $_fields;
-
 
     /**
      * @param string $filter
@@ -87,7 +85,6 @@ class GetParameters
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -95,7 +92,6 @@ class GetParameters
     {
         return $this->_filter;
     }
-
 
     /**
      * @param int $limit
@@ -109,7 +105,6 @@ class GetParameters
         return $this;
     }
 
-
     /**
      * @return int
      */
@@ -117,7 +112,6 @@ class GetParameters
     {
         return $this->_limit;
     }
-
 
     /**
      * @param int $offset
@@ -131,7 +125,6 @@ class GetParameters
         return $this;
     }
 
-
     /**
      * @return int
      */
@@ -139,7 +132,6 @@ class GetParameters
     {
         return $this->_offset;
     }
-
 
     /**
      * @param boolean $expand
@@ -153,7 +145,6 @@ class GetParameters
         return $this;
     }
 
-
     /**
      * @return boolean
      */
@@ -161,7 +152,6 @@ class GetParameters
     {
         return $this->_expand;
     }
-
 
     /**
      * @param \string[] $fields
@@ -174,7 +164,6 @@ class GetParameters
 
         return $this;
     }
-
 
     /**
      * @return \string[]

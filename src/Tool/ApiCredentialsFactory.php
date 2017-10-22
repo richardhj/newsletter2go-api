@@ -1,20 +1,25 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Tool;
 
-namespace Newsletter2Go\Api\Tool;
+use BadFunctionCallException;
 
 
 /**
  * Class ApiCredentialsFactory
  *
- * @package Newsletter2Go\Api\Tool
+ * @package Richardhj\Newsletter2Go\Api\Tool
  */
 class ApiCredentialsFactory
 {
@@ -28,8 +33,8 @@ class ApiCredentialsFactory
      */
     public static function create()
     {
-        // Credentials with username and password
         if (3 === func_num_args()) {
+            // Credentials with username and password
             list ($authKey, $username, $password) = func_get_args();
 
             $instance = new ApiCredentials();
@@ -40,8 +45,8 @@ class ApiCredentialsFactory
 
             return $instance;
 
-        } // Credentials with refresh token
-        elseif (2 === func_num_args()) {
+        } elseif (2 === func_num_args()) {
+            // Credentials with refresh token
             list($authKey, $refreshToken) = func_get_args();
 
             $instance = new ApiCredentials();
@@ -52,9 +57,8 @@ class ApiCredentialsFactory
             return $instance;
         }
 
-        throw new \BadFunctionCallException('Provided parameters malicious');
+        throw new BadFunctionCallException('Provided parameters malicious');
     }
-
 
     /**
      * Create an ApiCredentials instance from auth key, username and password
@@ -69,7 +73,6 @@ class ApiCredentialsFactory
     {
         return static::create($authKey, $username, $password);
     }
-
 
     /**
      * Create an ApiCredentials instance from auth key and refresh token

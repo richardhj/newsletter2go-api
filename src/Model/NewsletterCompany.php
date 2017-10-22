@@ -1,14 +1,17 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
-
-namespace Newsletter2Go\Api\Model;
+namespace Richardhj\Newsletter2Go\Api\Model;
 
 
 /**
@@ -46,7 +49,7 @@ namespace Newsletter2Go\Api\Model;
  * @method string getCreditsFreemail()
  * @method string getCreditsAbo()
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
 class NewsletterCompany extends AbstractModel
 {
@@ -54,14 +57,12 @@ class NewsletterCompany extends AbstractModel
     use ModelBasicFindTrait;
     use ModelBasicSaveTrait;
 
-
     /**
      * Resource path on endpoint
      *
      * @var string
      */
     protected static $endpointResource = '/companies';
-
 
     /**
      * An array containing all field that can be configured and will be represented in the json

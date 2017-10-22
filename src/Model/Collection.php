@@ -1,23 +1,33 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
+namespace Richardhj\Newsletter2Go\Api\Model;
 
-namespace Newsletter2Go\Api\Model;
-
+use ArrayAccess;
+use ArrayIterator;
+use BadFunctionCallException;
+use Countable;
+use InvalidArgumentException;
+use IteratorAggregate;
+use RuntimeException;
 
 /**
  * Class Collection
  * Adapted from Contao Open Source CMS
  *
- * @package Newsletter2Go\Api\Model
+ * @package Richardhj\Newsletter2Go\Api\Model
  */
-class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
+class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
 
     /**
@@ -27,7 +37,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     private $index = -1;
 
-
     /**
      * Models
      *
@@ -35,13 +44,12 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     private $models = [];
 
-
     /**
      * Create a new collection
      *
      * @param array $models An array of models
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(array $models)
     {
@@ -49,13 +57,12 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         foreach ($models as $model) {
             if (!$model instanceof AbstractModel) {
-                throw new \InvalidArgumentException('Invalid type: ' . gettype($model));
+                throw new InvalidArgumentException('Invalid type: '.gettype($model));
             }
         }
 
         $this->models = $models;
     }
-
 
     /**
      * Set an object property
@@ -71,7 +78,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         $this->models[$this->index]->$key = $value;
     }
-
 
     /**
      * Return an object property
@@ -93,7 +99,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return null;
     }
 
-
     /**
      * Check whether a property is set
      *
@@ -110,7 +115,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return isset($this->models[$this->index]->$key);
     }
 
-
     /**
      * Return the current row as associative array
      *
@@ -124,7 +128,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $this->models[$this->index]->getData();
     }
-
 
     /**
      * Set the current row from an array
@@ -144,7 +147,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this;
     }
 
-
     /**
      * Save the current model
      *
@@ -161,7 +163,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this;
     }
 
-
     /**
      * Delete the current model and return the number of affected rows
      *
@@ -177,10 +178,9 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
             /** @noinspection PhpUndefinedMethodInspection */
             return $this->models[$this->index]->delete();
         } else {
-            throw new \BadFunctionCallException(gettype($this->models[$this->index]) . ' is not deletable');
+            throw new BadFunctionCallException(gettype($this->models[$this->index]).' is not deletable');
         }
     }
-
 
     /**
      * Return the models as array
@@ -192,7 +192,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this->models;
     }
 
-
     /**
      * Return the number of rows in the result set
      *
@@ -202,7 +201,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         return count($this->models);
     }
-
 
     /**
      * Go to the first row
@@ -215,7 +213,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $this;
     }
-
 
     /**
      * Go to the previous row
@@ -233,7 +230,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this;
     }
 
-
     /**
      * Return the current model
      *
@@ -247,7 +243,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $this->models[$this->index];
     }
-
 
     /**
      * Go to the next row
@@ -265,7 +260,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this;
     }
 
-
     /**
      * Go to the last row
      *
@@ -278,7 +272,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this;
     }
 
-
     /**
      * Reset the model
      *
@@ -290,7 +283,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $this;
     }
-
 
     /**
      * Fetch a column of each row
@@ -316,7 +308,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $return;
     }
 
-
     /**
      * Fetch all columns of every row
      *
@@ -334,7 +325,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $return;
     }
 
-
     /**
      * Check whether an offset exists
      *
@@ -346,7 +336,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         return isset($this->models[$offset]);
     }
-
 
     /**
      * Retrieve a particular offset
@@ -360,41 +349,38 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this->models[$offset];
     }
 
-
     /**
      * Set a particular offset
      *
      * @param integer $offset The offset
      * @param mixed   $value  The value to set
      *
-     * @throws \RuntimeException The collection is immutable
+     * @throws RuntimeException The collection is immutable
      */
     public function offsetSet($offset, $value)
     {
-        throw new \RuntimeException('This collection is immutable');
+        throw new RuntimeException('This collection is immutable');
     }
-
 
     /**
      * Unset a particular offset
      *
      * @param integer $offset The offset
      *
-     * @throws \RuntimeException The collection is immutable
+     * @throws RuntimeException The collection is immutable
      */
     public function offsetUnset($offset)
     {
-        throw new \RuntimeException('This collection is immutable');
+        throw new RuntimeException('This collection is immutable');
     }
-
 
     /**
      * Retrieve the iterator object
      *
-     * @return \ArrayIterator The iterator object
+     * @return ArrayIterator The iterator object
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->models);
+        return new ArrayIterator($this->models);
     }
 }

@@ -1,20 +1,23 @@
 <?php
+
 /**
- * Newsletter2Go model based API integration
+ * This file is part of richardhj/newsletter2go-api.
  *
- * @copyright Copyright (c) 2016 Richard Henkenjohann
- * @license   LGPL-3.0+
+ * Copyright (c) 2016-2017 Richard Henkenjohann
+ *
+ * @package   richardhj/newsletter2go-api
  * @author    Richard Henkenjohann <richardhenkenjohann@googlemail.com>
+ * @copyright 2016-2017 Richard Henkenjohann
+ * @license   https://github.com/richardhj/newsletter2go-api/blob/master/LICENSE LGPL-3.0
  */
 
-
-namespace Newsletter2Go\Api\Tool;
+namespace Richardhj\Newsletter2Go\Api\Tool;
 
 
 /**
  * Class ApiCredentials
  *
- * @package Newsletter2Go\Api\Tool
+ * @package Richardhj\Newsletter2Go\Api\Tool
  */
 class ApiCredentials
 {
@@ -24,24 +27,20 @@ class ApiCredentials
      */
     private $authKey;
 
-
     /**
      * @var string
      */
     private $username;
-
 
     /**
      * @var string
      */
     private $password;
 
-
     /**
      * @var string
      */
     private $refreshToken;
-
 
     /**
      * @param string $authKey
@@ -55,7 +54,6 @@ class ApiCredentials
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -63,7 +61,6 @@ class ApiCredentials
     {
         return $this->authKey;
     }
-
 
     /**
      * @param string $username
@@ -77,7 +74,6 @@ class ApiCredentials
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -85,7 +81,6 @@ class ApiCredentials
     {
         return $this->username;
     }
-
 
     /**
      * @param string $password
@@ -99,7 +94,6 @@ class ApiCredentials
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -107,7 +101,6 @@ class ApiCredentials
     {
         return $this->password;
     }
-
 
     /**
      * @param string $refreshToken
@@ -120,7 +113,6 @@ class ApiCredentials
 
         return $this;
     }
-
 
     /**
      * @return string
