@@ -1,29 +1,29 @@
 {
-    "name": "richardhj/newsletter2go-api",
-    "description": "Model based Newsletter2Go API implementation",
-    "keywords": [
-        "api",
-        "newsletter2go"
-    ],
-    "license": "LGPL-3.0+",
-    "authors": [
-        {
-            "name": "Richard Henkenjohann",
-            "email": "richardhenkenjohann@googlemail.com",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/richardhj/newsletter2go-api/issues",
-        "source": "https://github.com/richardhj/newsletter2go-api"
-    },
-    "require": {
-        "php": "^5.4 || ^7.0",
-        "richardhj/oauth2-newsletter2go": "^2.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Richardhj\\Newsletter2Go\\Api\\": "src/"
-        }
+  "name": "richardhj/newsletter2go-api",
+  "description": "Model based Newsletter2Go API implementation",
+  "keywords": [
+    "api",
+    "newsletter2go"
+  ],
+  "license": "LGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Richard Henkenjohann",
+      "email": "richardhenkenjohann@googlemail.com",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "issues": "https://github.com/richardhj/newsletter2go-api/issues",
+    "source": "https://github.com/richardhj/newsletter2go-api"
+  },
+  "require": {
+    "php": "^5.4|^7.0",
+    "richardhj/oauth2-newsletter2go": "~2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Richardhj\\Newsletter2Go\\Api\\": "src/"
+    }
+  }
 }
