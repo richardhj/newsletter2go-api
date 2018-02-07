@@ -28,12 +28,15 @@ trait ModelBasicSaveTrait
      * Save the current item
      *
      * @return self
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function save()
     {
         /** @var Api $api */
         $api      = $this->getApi();
-        $endpoint = $api->fillEndpointWithParams(static::$endpointResource.'/%s', $this->getId());
+        $endpoint = $api::fillEndpointWithParams(static::$endpointResource.'/%s', $this->getId());
 
         $api
             ->getHttpClient()

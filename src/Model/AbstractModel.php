@@ -57,14 +57,6 @@ abstract class AbstractModel implements JsonSerializable
     private $api;
 
     /**
-     * AbstractModel constructor.
-     */
-    public function __construct()
-    {
-        $this->api = new Api();
-    }
-
-    /**
      * Create a model instance from static context
      *
      * @return static
@@ -115,7 +107,7 @@ abstract class AbstractModel implements JsonSerializable
             return;
         }
 
-        $this->getApi()->setApiCredentials($credentials);
+        $this->api = new Api($credentials);
     }
 
     /**
@@ -128,11 +120,21 @@ abstract class AbstractModel implements JsonSerializable
      */
     public function __set($key, $value)
     {
-        if (strlen($value)) {
+        if (!$value) {
             $this->data[$key] = $value;
         }
 
         return $this;
+    }
+
+    /**
+     * @param $key
+     *
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return isset($this->data[$key]);
     }
 
     /**
@@ -141,6 +143,8 @@ abstract class AbstractModel implements JsonSerializable
      * @param $key
      *
      * @return mixed
+     *
+     * @throws \InvalidArgumentException
      */
     public function __get($key)
     {
@@ -158,6 +162,7 @@ abstract class AbstractModel implements JsonSerializable
      * @param array  $arguments
      *
      * @return mixed
+     *
      * @throws BadFunctionCallException
      */
     public function __call($name, $arguments)
@@ -166,7 +171,8 @@ abstract class AbstractModel implements JsonSerializable
         if (0 === strncmp($name, 'set', 3)) {
             return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))}
                 = reset($arguments);
-        } elseif (0 === strncmp($name, 'get', 3)) {
+        }
+        if (0 === strncmp($name, 'get', 3)) {
             return $this->{strtolower(ltrim(substr(preg_replace('/[A-Z]/', '_$0', $name), 3), '_'))};
         }
 
@@ -178,7 +184,7 @@ abstract class AbstractModel implements JsonSerializable
      *
      * @return self
      */
-    public abstract function save();
+    abstract public function save();
 
     /**
      * Get all configurable fields
@@ -196,6 +202,9 @@ abstract class AbstractModel implements JsonSerializable
      * @param ResponseInterface $response
      *
      * @return Collection|null
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     protected function createCollectionFromResponse(ResponseInterface $response)
     {
@@ -208,7 +217,7 @@ abstract class AbstractModel implements JsonSerializable
         /** @var AbstractModel[] $models */
         $models = [];
 
-        foreach ($json->value as $i => $data) {
+        foreach ((array)$json->value as $i => $data) {
             $models[$i] = clone $this;
             $models[$i]->setData((array)$data);
         }
@@ -229,7 +238,7 @@ abstract class AbstractModel implements JsonSerializable
         return array_filter(
             $this->data,
             function ($k) {
-                return in_array($k, static::getConfigurableFields());
+                return \in_array($k, static::getConfigurableFields(), true);
             },
             ARRAY_FILTER_USE_KEY
         );

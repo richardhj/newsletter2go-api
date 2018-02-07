@@ -26,7 +26,7 @@ use Richardhj\Newsletter2Go\OAuth2\Client\Provider\Newsletter2Go as OAuthProvide
  *
  * @package Richardhj\Newsletter2Go\Api
  */
-class Api
+final class Api
 {
 
     /**
@@ -51,11 +51,25 @@ class Api
     private $apiCredentials;
 
     /**
+     * Api constructor.
+     *
+     * @param ApiCredentials|null $apiCredentials The API credentials. Nullable just for BC.
+     * @param AccessToken|null    $accessToken    The OAuth2 access token.
+     */
+    public function __construct(ApiCredentials $apiCredentials = null, AccessToken $accessToken = null)
+    {
+        $this->apiCredentials = $apiCredentials;
+        $this->accessToken    = $accessToken;
+    }
+
+    /**
      * Set the access token used for api communication
      *
      * @param AccessToken $accessToken
      *
      * @return Api
+     *
+     * @deprecated Please inject in the constructor.
      */
     public function setAccessToken(AccessToken $accessToken)
     {
@@ -70,6 +84,8 @@ class Api
      * @param ApiCredentials $apiCredentials
      *
      * @return Api
+     *
+     * @deprecated Please inject in the constructor.
      */
     public function setApiCredentials($apiCredentials)
     {
@@ -82,8 +98,10 @@ class Api
      * Authorize and set the access token
      *
      * @return void
+     *
+     * @throws \LogicException In case the auth key is missing.
      */
-    protected function authorize()
+    private function authorize()
     {
         if (null === $this->apiCredentials->getAuthKey()) {
             throw new LogicException('Set the auth key beforehand');
@@ -96,29 +114,25 @@ class Api
         );
 
         // Refresh token
-        if (strlen($this->apiCredentials->getRefreshToken()) || null !== $this->accessToken) {
-            $this->setAccessToken(
-                $provider->getAccessToken(
-                    'https://nl2go.com/jwt_refresh',
-                    [
-                        'refresh_token' => $this->apiCredentials->getRefreshToken()
-                            ?: $this->accessToken->getRefreshToken(),
-                    ]
-                )
+        if (null !== $this->accessToken || '' !== $this->apiCredentials->getRefreshToken()) {
+            $this->accessToken = $provider->getAccessToken(
+                'https://nl2go.com/jwt_refresh',
+                [
+                    'refresh_token' => $this->apiCredentials->getRefreshToken()
+                        ?: $this->accessToken->getRefreshToken(),
+                ]
             );
 
             return;
         }
 
         // Login and fetch new access token
-        $this->setAccessToken(
-            $provider->getAccessToken(
-                'https://nl2go.com/jwt',
-                [
-                    'username' => $this->apiCredentials->getUsername(),
-                    'password' => $this->apiCredentials->getPassword(),
-                ]
-            )
+        $this->accessToken = $provider->getAccessToken(
+            'https://nl2go.com/jwt',
+            [
+                'username' => $this->apiCredentials->getUsername(),
+                'password' => $this->apiCredentials->getPassword(),
+            ]
         );
     }
 
@@ -153,13 +167,16 @@ class Api
 
         $query = http_build_query($getParameters);
 
-        return $endpoint.((strlen($query)) ? '?'.$query : '');
+        return $endpoint.('' !== $query ? '?'.$query : '');
     }
 
     /**
      * Get the guzzle http client and set base uri and access token header
      *
      * @return HttpClient
+     *
+     * @throws \LogicException   In case the auth key is missing.
+     * @throws \RuntimeException If 'expires' is not set on the access token.
      */
     public function getHttpClient()
     {

@@ -57,7 +57,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
         foreach ($models as $model) {
             if (!$model instanceof AbstractModel) {
-                throw new InvalidArgumentException('Invalid type: '.gettype($model));
+                throw new InvalidArgumentException('Invalid type: '.\gettype($model));
             }
         }
 
@@ -167,6 +167,8 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
      * Delete the current model and return the number of affected rows
      *
      * @return integer The number of affected rows
+     *
+     * @throws \BadFunctionCallException
      */
     public function delete()
     {
@@ -177,9 +179,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
         if ($this->models[$this->index] instanceof ModelDeletableInterface) {
             /** @noinspection PhpUndefinedMethodInspection */
             return $this->models[$this->index]->delete();
-        } else {
-            throw new BadFunctionCallException(gettype($this->models[$this->index]).' is not deletable');
         }
+
+        throw new BadFunctionCallException(\gettype($this->models[$this->index]).' is not deletable');
     }
 
     /**
@@ -199,7 +201,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
      */
     public function count()
     {
-        return count($this->models);
+        return \count($this->models);
     }
 
     /**
@@ -298,7 +300,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate
 
         while ($this->next()) {
 
-            if ($key != 'id' && isset($this->id)) {
+            if ('id' !== $key && isset($this->id)) {
                 $return[$this->id] = $this->$key;
             } else {
                 $return[] = $this->$key;

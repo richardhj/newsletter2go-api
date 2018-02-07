@@ -19,7 +19,7 @@ namespace Richardhj\Newsletter2Go\Api\Tool;
  *
  * @package Richardhj\Newsletter2Go\Api\Tool
  */
-class GetParameters
+final class GetParameters
 {
 
     /**

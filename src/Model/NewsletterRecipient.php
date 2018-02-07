@@ -63,7 +63,8 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         'is_blacklisted',
     ];
 
-    /**
+    /** @noinspection MoreThanThreeArgumentsInspection
+     *
      * Find recipients by a selected list and group
      *
      * @param string         $lid The list id
@@ -72,6 +73,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * @param ApiCredentials $credentials
      *
      * @return Collection|null
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public static function findByListAndGroup(
         $lid,
@@ -100,6 +105,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * @param ApiCredentials $credentials
      *
      * @return Collection|null
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public static function findByList($lid, GetParameters $getParams = null, ApiCredentials $credentials = null)
     {
@@ -120,6 +129,11 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * Add this recipient to a particular group
      *
      * @param string $gid The group id
+     *
+     * @return void
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function addToGroup($gid)
     {
@@ -141,6 +155,11 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * Remove this recipient from a particular group
      *
      * @param string $gid The group id
+     *
+     * @return void
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function removeFromGroup($gid)
     {
@@ -162,6 +181,9 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * Save the current model
      *
      * @return self
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function save()
     {
@@ -187,6 +209,9 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * Delete the current model
      *
      * @return void
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function delete()
     {
@@ -223,6 +248,9 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * Update the current recipient by a given id
      *
      * @return self
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     private function update()
     {

@@ -32,6 +32,9 @@ trait ModelBasicFindTrait
      * @param ApiCredentials $credentials
      *
      * @return AbstractModel|null
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public static function findById($id, ApiCredentials $credentials = null)
     {
@@ -62,6 +65,10 @@ trait ModelBasicFindTrait
      * @param ApiCredentials $credentials
      *
      * @return Collection|null
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public static function findAll(GetParameters $getParameters = null, ApiCredentials $credentials = null)
     {

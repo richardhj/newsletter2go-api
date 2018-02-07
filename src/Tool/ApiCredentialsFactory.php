@@ -30,12 +30,14 @@ class ApiCredentialsFactory
      * The following parameters might be the (username and the password) OR the refresh token
      *
      * @return ApiCredentials
+     *
+     * @throws \BadFunctionCallException If neither 2 nor 3 arguments are passed to this method.
      */
     public static function create()
     {
-        if (3 === func_num_args()) {
+        if (3 === \func_num_args()) {
             // Credentials with username and password
-            list ($authKey, $username, $password) = func_get_args();
+            list ($authKey, $username, $password) = \func_get_args();
 
             $instance = new ApiCredentials();
             $instance
@@ -45,9 +47,11 @@ class ApiCredentialsFactory
 
             return $instance;
 
-        } elseif (2 === func_num_args()) {
+        }
+
+        if (2 === \func_num_args()) {
             // Credentials with refresh token
-            list($authKey, $refreshToken) = func_get_args();
+            list($authKey, $refreshToken) = \func_get_args();
 
             $instance = new ApiCredentials();
             $instance
@@ -63,9 +67,9 @@ class ApiCredentialsFactory
     /**
      * Create an ApiCredentials instance from auth key, username and password
      *
-     * @param string $authKey
-     * @param string $username
-     * @param string $password
+     * @param string $authKey  The auth key of the Newsletter2Go account.
+     * @param string $username The user's personal username.
+     * @param string $password The user's personal password.
      *
      * @return ApiCredentials
      */
@@ -77,8 +81,8 @@ class ApiCredentialsFactory
     /**
      * Create an ApiCredentials instance from auth key and refresh token
      *
-     * @param string $authKey
-     * @param string $refreshToken
+     * @param string $authKey      The auth key of the Newsletter2Go account.
+     * @param string $refreshToken The valid refresh token.
      *
      * @return ApiCredentials
      */

@@ -53,6 +53,10 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
      * @param ApiCredentials $credentials
      *
      * @return Collection|null
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public static function findByList($lid, GetParameters $getParams = null, ApiCredentials $credentials = null)
     {
@@ -73,6 +77,9 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
      * Delete the current model
      *
      * @return void
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function delete()
     {
@@ -93,6 +100,9 @@ class NewsletterGroup extends AbstractModel implements ModelDeletableInterface
      * Save the current model
      *
      * @return self
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function save()
     {

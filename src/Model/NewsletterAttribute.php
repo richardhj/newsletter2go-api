@@ -64,6 +64,10 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
      * @param ApiCredentials $credentials
      *
      * @return Collection|null
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public static function findByList($lid, GetParameters $getParams = null, ApiCredentials $credentials = null)
     {
@@ -84,6 +88,9 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
      * Delete the current model
      *
      * @return void
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function delete()
     {
@@ -104,6 +111,9 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
      * Save the current model
      *
      * @return self
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     public function save()
     {
@@ -129,6 +139,9 @@ class NewsletterAttribute extends AbstractModel implements ModelDeletableInterfa
      * Update the current recipient by a given id
      *
      * @return self
+     *
+     * @throws \RuntimeException
+     * @throws \LogicException
      */
     private function update()
     {
