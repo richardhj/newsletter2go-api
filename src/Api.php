@@ -14,6 +14,7 @@
 namespace Richardhj\Newsletter2Go\Api;
 
 use GuzzleHttp\Client as HttpClient;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use LogicException;
 use Richardhj\Newsletter2Go\Api\Tool\ApiCredentials;
@@ -99,7 +100,9 @@ final class Api
      *
      * @return void
      *
-     * @throws \LogicException In case the auth key is missing.
+     * @throws \InvalidArgumentException
+     * @throws LogicException In case the api credentials lack of data.
+     * @throws IdentityProviderException
      */
     private function authorize()
     {
@@ -124,6 +127,10 @@ final class Api
             );
 
             return;
+        }
+
+        if (null === $this->apiCredentials->getUsername() || null === $this->apiCredentials->getPassword()) {
+            throw new LogicException('Neither refresh token nor credentials are given.');
         }
 
         // Login and fetch new access token
@@ -175,8 +182,10 @@ final class Api
      *
      * @return HttpClient
      *
-     * @throws \LogicException   In case the auth key is missing.
+     * @throws \InvalidArgumentException
+     * @throws LogicException
      * @throws \RuntimeException If 'expires' is not set on the access token.
+     * @throws IdentityProviderException
      */
     public function getHttpClient()
     {
