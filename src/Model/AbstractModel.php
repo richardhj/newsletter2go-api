@@ -120,7 +120,7 @@ abstract class AbstractModel implements JsonSerializable
      */
     public function __set($key, $value)
     {
-        if (!$value) {
+        if ($value) {
             $this->data[$key] = $value;
         }
 
@@ -191,7 +191,7 @@ abstract class AbstractModel implements JsonSerializable
      *
      * @return array
      */
-    public static function getConfigurableFields()
+    public function getConfigurableFields()
     {
         return static::$configurableFields;
     }

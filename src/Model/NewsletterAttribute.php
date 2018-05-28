@@ -24,7 +24,8 @@ use Richardhj\Newsletter2Go\Api\Tool\GetParameters;
  * @method NewsletterAttribute setId($id)
  * @method NewsletterAttribute setName($name)
  * @method NewsletterAttribute setType($type) One of ['number', 'date', 'boolean', 'text']
- * @method NewsletterAttribute setSubType($subType)
+ * @method NewsletterAttribute setSubType($subType) One of the ['text', 'email', 'color', 'url', 'tel', 'date',
+ *         'datetime', 'time', 'integer', 'float']
  * @method string getId()
  * @method string getCompanyId()
  * @method string getName()

@@ -63,6 +63,16 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
         'is_blacklisted',
     ];
 
+    /**
+     * Get all configurable fields
+     *
+     * @return array
+     */
+    public function getConfigurableFields()
+    {
+        return array_keys($this->getData());
+    }
+
     /** @noinspection MoreThanThreeArgumentsInspection
      *
      * Find recipients by a selected list and group
@@ -77,6 +87,7 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     public static function findByListAndGroup(
         $lid,
@@ -109,6 +120,7 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     public static function findByList($lid, GetParameters $getParams = null, ApiCredentials $credentials = null)
     {
@@ -132,8 +144,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      *
      * @return void
      *
+     * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     public function addToGroup($gid)
     {
@@ -158,8 +172,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      *
      * @return void
      *
+     * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     public function removeFromGroup($gid)
     {
@@ -182,8 +198,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      *
      * @return self
      *
+     * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     public function save()
     {
@@ -210,8 +228,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      *
      * @return void
      *
+     * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     public function delete()
     {
@@ -249,8 +269,10 @@ class NewsletterRecipient extends AbstractModel implements ModelDeletableInterfa
      *
      * @return self
      *
+     * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \LogicException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      */
     private function update()
     {
