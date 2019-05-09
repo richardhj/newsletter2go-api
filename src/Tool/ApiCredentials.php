@@ -40,7 +40,7 @@ final class ApiCredentials
     /**
      * @var string
      */
-    private $refreshToken;
+    private $refreshToken = '';
 
     /**
      * @param string $authKey
